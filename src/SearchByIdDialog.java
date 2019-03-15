@@ -4,27 +4,24 @@
  * 
  * */
 
+/*
+ * 
+ * This is the dialog for Employee search by ID
+ * 
+ * */
+
 import java.awt.Color;
-import java.awt.Container;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.border.EtchedBorder;
 
-public class SearchByIdDialog extends JDialog implements ActionListener {
-	EmployeeDetails parent;
-	JButton search, cancel;
-	JTextField searchField;
+
+public class SearchByIdDialog extends Search implements ActionListener {	
 	// constructor for SearchByIdDialog 
 	public SearchByIdDialog(EmployeeDetails parent) {
 		setTitle("Search by Surname");
@@ -42,40 +39,13 @@ public class SearchByIdDialog extends JDialog implements ActionListener {
 		setVisible(true);
 	}// end SearchByIdDialog
 	
-	// initialize search container
-	public Container searchPane() {
-		JPanel searchPanel = new JPanel(new GridLayout(3, 1));
-		JPanel textPanel = new JPanel();
-		JPanel buttonPanel = new JPanel();
-		JLabel searchLabel;
-
-		searchPanel.add(new JLabel("Search by ID"));
-
-		textPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-		textPanel.add(searchLabel = new JLabel("Enter ID:"));
-		searchLabel.setFont(this.parent.font1);
-		textPanel.add(searchField = new JTextField(20));
-		searchField.setFont(this.parent.font1);
-		searchField.setDocument(new JTextFieldLimit(20));
-		
-		buttonPanel.add(search = new JButton("Search"));
-		search.addActionListener(this);
-		search.requestFocus();
-		
-		buttonPanel.add(cancel = new JButton("Cancel"));
-		cancel.addActionListener(this);
-
-		searchPanel.add(textPanel);
-		searchPanel.add(buttonPanel);
-
-		return searchPanel;
-	}// end searchPane
-
+	
+	
 	// action listener for save and cancel button
 	public void actionPerformed(ActionEvent e) {
 		// if option search, search for Employee
 		if (e.getSource() == search) {
-			// try get correct valus from text field
+			// try get correct value from text field
 			try {
 				Double.parseDouble(searchField.getText());
 				this.parent.searchByIdField.setText(searchField.getText());
@@ -84,7 +54,7 @@ public class SearchByIdDialog extends JDialog implements ActionListener {
 				dispose();// dispose dialog
 			}// end try
 			catch (NumberFormatException num) {
-				// display message and set colour to text field if entry is wrong
+				// display message and set color to text field if entry is wrong
 				searchField.setBackground(new Color(255, 150, 150));
 				JOptionPane.showMessageDialog(null, "Wrong ID format!");
 			}// end catch
