@@ -155,6 +155,9 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 			if (Double.parseDouble(salaryField.getText()) < 0) {
 				salaryField.setBackground(new Color(255, 150, 150));
 				valid = false;
+			}else if (Double.parseDouble(salaryField.getText()) > 25) {
+				salaryField.setBackground(new Color(255, 150, 150));
+				valid = false;
 			}// end if
 		}// end try
 		catch (NumberFormatException num) {
