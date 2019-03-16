@@ -49,7 +49,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.miginfocom.swing.MigLayout;
 
-public class EmployeeDetails extends JFrame implements ActionListener, ItemListener, DocumentListener, WindowListener {
+public class EmployeeDetails extends JFrame implements ActionListener, ItemListener, DocumentListener, WindowListener, EmployeeMediator {
 	// decimal format for inactive currency text field
 	private static final DecimalFormat format = new DecimalFormat("\u20ac ###,###,##0.00");
 	// decimal format for active currency text field
@@ -296,6 +296,10 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}// end detailsPanel
 
 	// display current Employee details
+	/* (non-Javadoc)
+	 * @see EmployeeMediator#displayRecords(Employee)
+	 */
+	@Override
 	public void displayRecords(Employee thisEmployee) {
 		int countGender = 0;
 		int countDep = 0;
@@ -435,6 +439,10 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}// end lastRecord
 
 	// search Employee by ID
+	/* (non-Javadoc)
+	 * @see EmployeeMediator#searchEmployeeById()
+	 */
+	@Override
 	public void searchEmployeeById() {
 		boolean found = false;
 
@@ -480,6 +488,10 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}// end searchEmployeeByID
 
 	// search Employee by surname
+	/* (non-Javadoc)
+	 * @see EmployeeMediator#searchEmployeeBySurname()
+	 */
+	@Override
 	public void searchEmployeeBySurname() {
 		boolean found = false;
 		// if any active Employee record search for ID else do nothing
@@ -518,6 +530,10 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}// end searchEmployeeBySurname
 
 	// get next free ID from Employees in the file
+	/* (non-Javadoc)
+	 * @see EmployeeMediator#getNextFreeId()
+	 */
+	@Override
 	public int getNextFreeId() {
 		int nextFreeId = 0;
 		// if file is empty or all records are empty start with ID 1 else look
@@ -548,6 +564,10 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}// end getChangedDetails
 
 	// add Employee object to fail
+	/* (non-Javadoc)
+	 * @see EmployeeMediator#addRecord(Employee)
+	 */
+	@Override
 	public void addRecord(Employee newEmployee) {
 		// open file for writing
 		application.openWriteFile(file.getAbsolutePath());
@@ -650,6 +670,10 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}// end isSomeoneToDisplay
 
 	// check for correct PPS format and look if PPS already in use
+	/* (non-Javadoc)
+	 * @see EmployeeMediator#correctPps(java.lang.String, long)
+	 */
+	@Override
 	public boolean correctPps(String pps, long currentByte) {
 		boolean ppsExist = false;
 		// check for correct PPS format based on assignment description
@@ -773,6 +797,10 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}// end setToWhite
 
 	// enable text fields for editing
+	/* (non-Javadoc)
+	 * @see EmployeeMediator#setEnabled(boolean)
+	 */
+	@Override
 	public void setEnabled(boolean booleanValue) {
 		boolean search;
 		if (booleanValue)
@@ -1093,22 +1121,38 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}// end main
 
 	// DocumentListener methods
+	/* (non-Javadoc)
+	 * @see EmployeeMediator#changedUpdate(javax.swing.event.DocumentEvent)
+	 */
+	@Override
 	public void changedUpdate(DocumentEvent d) {
 		change = true;
 		new JTextFieldLimit(20);
 	}
 
+	/* (non-Javadoc)
+	 * @see EmployeeMediator#insertUpdate(javax.swing.event.DocumentEvent)
+	 */
+	@Override
 	public void insertUpdate(DocumentEvent d) {
 		change = true;
 		new JTextFieldLimit(20);
 	}
 
+	/* (non-Javadoc)
+	 * @see EmployeeMediator#removeUpdate(javax.swing.event.DocumentEvent)
+	 */
+	@Override
 	public void removeUpdate(DocumentEvent d) {
 		change = true;
 		new JTextFieldLimit(20);
 	}
 
 	// ItemListener method
+	/* (non-Javadoc)
+	 * @see EmployeeMediator#itemStateChanged(java.awt.event.ItemEvent)
+	 */
+	@Override
 	public void itemStateChanged(ItemEvent e) {
 		change = true;
 	}
